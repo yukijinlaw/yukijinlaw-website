@@ -562,6 +562,29 @@ textarea {
   align-items: end;
 }
 
+/* Bilingual split layout: English (left) and 中文 (right) */
+.lang-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
+}
+.lang-split .lang-en,
+.lang-split .lang-zh {
+  background: transparent;
+  padding: 0.6rem 0;
+}
+.lang-split h1,
+.lang-split h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  color: var(--ink);
+}
+.lang-split p { color: var(--ink-2); }
+
+@media (max-width: 860px) {
+  .lang-split { grid-template-columns: 1fr; gap: 1.1rem; }
+}
+
 .about-hero-content {
   width: 100%;
 }
