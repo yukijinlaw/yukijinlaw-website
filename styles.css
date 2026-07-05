@@ -147,6 +147,27 @@ main {
   gap: 2rem;
 }
 
+.about-hero {
+  grid-template-columns: minmax(0, 340px) 1fr;
+  align-items: start;
+  gap: 3rem;
+  padding: 3.2rem 0 4rem;
+}
+
+.about-hero-image {
+  width: min(340px, 100%);
+  max-width: 380px;
+  align-self: start;
+}
+
+.about-hero-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
 .hero-section {
   grid-template-columns: 1.1fr 0.95fr;
   align-items: center;
@@ -214,7 +235,7 @@ main {
   border-color: var(--accent);
 }
 
-..hero-image-block,
+.hero-image-block,
 .about-hero-image {
   border-radius: 24px;
   overflow: hidden;
@@ -366,6 +387,17 @@ main {
   .practice-grid,
   .split-grid {
     grid-template-columns: 1fr;
+  }
+
+  .about-hero {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .about-hero-image {
+    width: min(300px, 100%);
+    max-width: 300px;
+    margin-bottom: 24px;
   }
 }
 
