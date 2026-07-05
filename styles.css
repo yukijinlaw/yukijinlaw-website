@@ -190,17 +190,44 @@ a {
   color: var(--white);
 }
 
-.eyebrow {
-  margin: 0 0 0.85rem;
-  color: var(--brass);
-  font-size: 0.78rem;
-  font-weight: 800;
-  letter-spacing: 0;
-  text-transform: uppercase;
-}
+  .hero-profile {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+    min-width: 320px;
+    max-width: 360px;
+    align-self: center;
+  }
 
-h1,
-h2,
+  .profile-frame {
+    margin: 0;
+    padding: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 28px 55px rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(18px);
+  }
+
+  .profile-frame img {
+    width: 100%;
+    display: block;
+    border-radius: 20px;
+    object-fit: cover;
+  }
+
+  .profile-copy {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .hero .hero-actions {
+    margin-top: 2rem;
+  }
+
+  .hero .button.secondary {
+    border-color: rgba(255, 255, 255, 0.4);
+    color: var(--white);
+  }
 h3,
 p {
   overflow-wrap: anywhere;
