@@ -107,8 +107,13 @@
         <section class="section about-layout">
           <div class="about-photo-card">
             <figure class="photo-frame">
-              <img src="images/p2.jpg" alt="Yuki Jin, California attorney" />
-            </figure>
+                <img src="images/p2.jpg"
+                     srcset="images/p2-480.jpg 480w, images/p2-768.jpg 768w, images/p2-1200.jpg 1200w"
+                     sizes="(max-width: 600px) 80vw, (max-width: 1200px) 40vw, 360px"
+                     alt="Yuki Jin, California attorney"
+                     loading="lazy"
+                     decoding="async">
+              </figure>
             <div class="photo-caption">
               <p class="eyebrow">Professional photo</p>
               <p>A polished, modern profile image reflecting the firm's executive-level counsel approach.</p>
