@@ -280,14 +280,32 @@ main {
   box-shadow: var(--shadow);
 }
 
+.practice-card {
+  min-height: 190px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.practice-card h3 {
+  margin: 0 0 0.75rem;
+}
+
+.practice-card p {
+  margin: 0;
+}
+
 .section-intro {
   max-width: 640px;
 }
 
 .card-grid,
-.blog-grid,
-.practice-grid {
+.blog-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.practice-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .blog-card .date {
@@ -384,9 +402,12 @@ main {
   .contact-layout,
   .content-grid,
   .card-grid,
-  .practice-grid,
   .split-grid {
     grid-template-columns: 1fr;
+  }
+
+  .practice-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .about-hero {
@@ -438,6 +459,10 @@ main {
 
   .hero-section {
     padding-top: 2rem;
+  }
+
+  .practice-grid {
+    grid-template-columns: 1fr;
   }
 
   .site-footer {
