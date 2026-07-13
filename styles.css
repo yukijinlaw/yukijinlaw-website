@@ -384,6 +384,37 @@ main {
   color: var(--ink-soft);
 }
 
+.language-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.8rem;
+  align-items: center;
+  margin: 0 0 1.25rem;
+  color: var(--ink-soft);
+  font-weight: 600;
+}
+
+.language-switcher a {
+  color: var(--accent);
+}
+
+.language-switcher a.active {
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+.article-language-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.article-language-links .button.secondary {
+  min-height: 42px;
+  padding: 0 1rem;
+}
+
 .site-footer strong {
   display: block;
   color: var(--ink);
@@ -455,6 +486,10 @@ main {
 
   .button {
     width: 100%;
+  }
+
+  .article-language-links .button.secondary {
+    width: auto;
   }
 
   .hero-section {
