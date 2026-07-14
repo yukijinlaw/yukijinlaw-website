@@ -266,6 +266,73 @@ main {
   max-width: 640px;
 }
 
+.breadcrumb {
+  margin: 1rem 0 1.5rem;
+}
+
+.breadcrumb ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.breadcrumb ol li {
+  white-space: nowrap;
+}
+
+.breadcrumb ol li::after {
+  content: ">";
+  margin: 0 0.5rem;
+  color: var(--ink-soft);
+}
+
+.breadcrumb ol li:last-child::after {
+  content: "";
+}
+
+.breadcrumb a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.blog-post {
+  max-width: 760px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1.25rem;
+}
+
+.blog-post p,
+.blog-post li {
+  color: var(--ink);
+}
+
+.blog-post h2 {
+  margin: 2rem 0 1rem;
+  font-size: clamp(1.55rem, 2vw, 1.95rem);
+}
+
+.cta-section {
+  padding: 2rem;
+  margin: 2rem 0;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--surface);
+}
+
+.cta-section h2 {
+  margin-top: 0;
+}
+
+.cta-section p {
+  margin: 0 0 1rem;
+}
+
 .card-section {
   padding-top: 2rem;
 }
