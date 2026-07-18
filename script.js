@@ -17,13 +17,18 @@ navLinks.forEach((link) => {
   });
 });
 
-function ArticleLanguageSwitcher(root) {
+function initArticleLanguageSwitcher(root) {
+  if (root.dataset.__multilingualInit === "true") {
+    return;
+  }
+  root.dataset.__multilingualInit = "true";
+
   const langParam = root.dataset.langParam || "lang";
   const defaultLang = root.dataset.defaultLang || "en";
   const storageKey = root.dataset.storageKey || "article-language";
-  const buttonsContainer = root.querySelector(".article-language-buttons");
-  const contentContainer = root.querySelector(".article-language-content");
-  const contents = Array.from(contentContainer.querySelectorAll(".language-content"));
+  let buttonsContainer = root.querySelector(".article-language-buttons");
+  let contentContainer = root.querySelector(".article-language-content");
+  const intro = root.querySelector(".article-language-intro");
   const metaDescription = document.querySelector("meta[name=description]");
   const ogTitle = document.querySelector("meta[property='og:title']");
   const ogDescription = document.querySelector("meta[property='og:description']");
@@ -36,11 +41,45 @@ function ArticleLanguageSwitcher(root) {
   const animationDuration = 150;
   let currentLang = defaultLang;
 
-  if (!buttonsContainer || !contentContainer || contents.length === 0) {
+  if (!buttonsContainer) {
+    buttonsContainer = document.createElement("div");
+    buttonsContainer.className = "article-language-buttons";
+    buttonsContainer.setAttribute("role", "tablist");
+    buttonsContainer.setAttribute("aria-label", "Select article language");
+    if (intro) {
+      intro.insertAdjacentElement("afterend", buttonsContainer);
+    } else {
+      root.prepend(buttonsContainer);
+    }
+  }
+
+  if (!contentContainer) {
+    contentContainer = document.createElement("div");
+    contentContainer.className = "article-language-content";
+    root.appendChild(contentContainer);
+  }
+
+  const templateNodes = Array.from(root.querySelectorAll("template[data-lang]"));
+  templateNodes.forEach((template) => {
+    const article = document.createElement("article");
+    article.className = "blog-post language-content";
+    Object.keys(template.dataset).forEach((key) => {
+      article.dataset[key] = template.dataset[key];
+    });
+    article.innerHTML = template.innerHTML;
+    contentContainer.appendChild(article);
+    template.remove();
+  });
+
+  const contents = Array.from(contentContainer.querySelectorAll(".language-content"));
+  if (contents.length === 0) {
     return;
   }
 
   const availableLangs = contents.map((content) => content.dataset.lang).filter(Boolean);
+  if (availableLangs.length === 0) {
+    return;
+  }
 
   function getInitialLanguage() {
     const params = new URLSearchParams(location.search);
@@ -143,11 +182,21 @@ function ArticleLanguageSwitcher(root) {
   });
 
   const initialLanguage = getInitialLanguage();
-  currentLang = initialLanguage;
-  setButtonState(initialLanguage);
-  setContentState(initialLanguage);
-  updateHeadForLanguage(initialLanguage);
-  updateLocation(initialLanguage);
+  currentLang = availableLangs.includes(initialLanguage) ? initialLanguage : availableLangs[0];
+  setButtonState(currentLang);
+  setContentState(currentLang);
+  updateHeadForLanguage(currentLang);
+  updateLocation(currentLang);
 }
 
-document.querySelectorAll(".article-language-switcher").forEach((root) => new ArticleLanguageSwitcher(root));
+class ArticleLanguageSwitcherElement extends HTMLElement {
+  connectedCallback() {
+    initArticleLanguageSwitcher(this);
+  }
+}
+
+if (typeof customElements !== "undefined") {
+  customElements.define("article-language-switcher", ArticleLanguageSwitcherElement);
+}
+
+document.querySelectorAll(".article-language-switcher, article-language-switcher").forEach((root) => initArticleLanguageSwitcher(root));

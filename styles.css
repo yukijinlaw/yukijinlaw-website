@@ -623,6 +623,10 @@ main {
     display: block;
   }
 
+  .language-content.active {
+    display: block;
+  }
+
 
 .site-footer p {
   margin: 0.5rem 0 0;
