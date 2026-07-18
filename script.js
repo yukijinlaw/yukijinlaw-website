@@ -16,3 +16,138 @@ navLinks.forEach((link) => {
     toggle.setAttribute("aria-expanded", "false");
   });
 });
+
+function ArticleLanguageSwitcher(root) {
+  const langParam = root.dataset.langParam || "lang";
+  const defaultLang = root.dataset.defaultLang || "en";
+  const storageKey = root.dataset.storageKey || "article-language";
+  const buttonsContainer = root.querySelector(".article-language-buttons");
+  const contentContainer = root.querySelector(".article-language-content");
+  const contents = Array.from(contentContainer.querySelectorAll(".language-content"));
+  const metaDescription = document.querySelector("meta[name=description]");
+  const ogTitle = document.querySelector("meta[property='og:title']");
+  const ogDescription = document.querySelector("meta[property='og:description']");
+  const labels = {
+    en: "English",
+    "zh-CN": "简体中文",
+    ko: "한국어",
+  };
+  const titleSuffix = " | Yuki Jin Law";
+  const animationDuration = 150;
+  let currentLang = defaultLang;
+
+  if (!buttonsContainer || !contentContainer || contents.length === 0) {
+    return;
+  }
+
+  const availableLangs = contents.map((content) => content.dataset.lang).filter(Boolean);
+
+  function getInitialLanguage() {
+    const params = new URLSearchParams(location.search);
+    const requested = params.get(langParam);
+    if (availableLangs.includes(requested)) {
+      return requested;
+    }
+
+    const saved = window.localStorage.getItem(storageKey);
+    if (availableLangs.includes(saved)) {
+      return saved;
+    }
+
+    return defaultLang;
+  }
+
+  function setButtonState(lang) {
+    buttonsContainer.querySelectorAll("button").forEach((button) => {
+      const active = button.dataset.lang === lang;
+      button.classList.toggle("active", active);
+      button.setAttribute("aria-selected", String(active));
+    });
+  }
+
+  function setContentState(lang) {
+    contents.forEach((content) => {
+      const isActive = content.dataset.lang === lang;
+      content.classList.toggle("active", isActive);
+      content.hidden = !isActive;
+    });
+  }
+
+  function updateHeadForLanguage(lang) {
+    const activeContent = contents.find((content) => content.dataset.lang === lang);
+    if (!activeContent) return;
+
+    if (metaDescription && activeContent.dataset.description) {
+      metaDescription.content = activeContent.dataset.description;
+    }
+
+    if (ogDescription && activeContent.dataset.description) {
+      ogDescription.content = activeContent.dataset.description;
+    }
+
+    if (activeContent.dataset.title) {
+      document.title = `${activeContent.dataset.title}${titleSuffix}`;
+      if (ogTitle) {
+        ogTitle.content = `${activeContent.dataset.title}${titleSuffix}`;
+      }
+    }
+
+    const htmlLang = activeContent.dataset.htmlLang || lang;
+    document.documentElement.lang = htmlLang;
+  }
+
+  function updateLocation(lang) {
+    const params = new URLSearchParams(location.search);
+    if (lang === defaultLang) {
+      params.delete(langParam);
+    } else {
+      params.set(langParam, lang);
+    }
+
+    const newSearch = params.toString() ? `?${params.toString()}` : "";
+    history.replaceState(null, "", `${location.pathname}${newSearch}${location.hash}`);
+  }
+
+  function selectLanguage(lang, updateHistory = true) {
+    if (lang === currentLang || !availableLangs.includes(lang)) {
+      return;
+    }
+
+    currentLang = lang;
+    setButtonState(lang);
+    contentContainer.classList.add("fade-out");
+
+    window.setTimeout(() => {
+      setContentState(lang);
+      updateHeadForLanguage(lang);
+      if (storageKey) {
+        window.localStorage.setItem(storageKey, lang);
+      }
+      if (updateHistory) {
+        updateLocation(lang);
+      }
+      contentContainer.classList.remove("fade-out");
+    }, animationDuration);
+  }
+
+  availableLangs.forEach((lang) => {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "language-pill";
+    button.dataset.lang = lang;
+    button.textContent = labels[lang] || lang;
+    button.setAttribute("role", "tab");
+    button.setAttribute("aria-selected", "false");
+    button.addEventListener("click", () => selectLanguage(lang));
+    buttonsContainer.appendChild(button);
+  });
+
+  const initialLanguage = getInitialLanguage();
+  currentLang = initialLanguage;
+  setButtonState(initialLanguage);
+  setContentState(initialLanguage);
+  updateHeadForLanguage(initialLanguage);
+  updateLocation(initialLanguage);
+}
+
+document.querySelectorAll(".article-language-switcher").forEach((root) => new ArticleLanguageSwitcher(root));
