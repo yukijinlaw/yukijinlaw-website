@@ -569,9 +569,26 @@ main {
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: 2rem;
   padding: 3rem 0 2rem;
-  border-top: 1px solid var(--line);
-  background: var(--paper);
-  color: var(--ink-soft);
+  border-top: 1px solid rgba(217, 240, 230, 0.25);
+  background-color: #0f3d35;
+  background-image: linear-gradient(rgba(15, 61, 53, 0.9), rgba(15, 61, 53, 0.9)), url("images/p4.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.site-footer strong {
+  color: #ffffff;
+}
+
+.site-footer a {
+  color: #ffffff;
+}
+
+.site-footer a:hover,
+.site-footer a:focus-visible {
+  color: #d9f0e6;
 }
 
 .language-switcher {
