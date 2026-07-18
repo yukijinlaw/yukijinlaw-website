@@ -17,6 +17,46 @@ navLinks.forEach((link) => {
   });
 });
 
+function initBlogArticleSorting() {
+  const blogGrid = document.querySelector(".blog-grid");
+  if (!blogGrid) {
+    return;
+  }
+
+  const cards = Array.from(blogGrid.querySelectorAll(".blog-card"));
+  if (cards.length === 0) {
+    return;
+  }
+
+  const datedCards = [];
+  const undatedCards = [];
+
+  cards.forEach((card, index) => {
+    const dateValue =
+      card.dataset.datePublished ||
+      card.dataset.publishedAt ||
+      card.querySelector("time[datetime]")?.getAttribute("datetime") ||
+      "";
+
+    const timestamp = Date.parse(dateValue);
+    if (Number.isFinite(timestamp)) {
+      datedCards.push({ card, timestamp, index });
+      return;
+    }
+
+    undatedCards.push({ card, index });
+  });
+
+  const sortedDated = [...datedCards]
+    .sort((a, b) => b.timestamp - a.timestamp || a.index - b.index)
+    .map((entry) => entry.card);
+  const sortedUndated = [...undatedCards].sort((a, b) => a.index - b.index).map((entry) => entry.card);
+
+  [...sortedDated, ...sortedUndated].forEach((card) => {
+    blogGrid.appendChild(card);
+  });
+}
+
 function initArticleLanguageSwitcher(root) {
   if (root.dataset.__multilingualInit === "true") {
     return;
@@ -203,3 +243,4 @@ if (typeof customElements !== "undefined") {
 }
 
 document.querySelectorAll(".article-language-switcher, article-language-switcher").forEach((root) => initArticleLanguageSwitcher(root));
+initBlogArticleSorting();
