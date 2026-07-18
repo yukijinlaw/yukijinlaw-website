@@ -101,6 +101,7 @@ function initArticleLanguageSwitcher(root) {
       const active = button.dataset.lang === lang;
       button.classList.toggle("active", active);
       button.setAttribute("aria-selected", String(active));
+      button.setAttribute("aria-pressed", String(active));
     });
   }
 
@@ -177,6 +178,8 @@ function initArticleLanguageSwitcher(root) {
     button.textContent = labels[lang] || lang;
     button.setAttribute("role", "tab");
     button.setAttribute("aria-selected", "false");
+    button.setAttribute("aria-pressed", "false");
+    button.setAttribute("aria-label", `View article in ${labels[lang] || lang}`);
     button.addEventListener("click", () => selectLanguage(lang));
     buttonsContainer.appendChild(button);
   });
