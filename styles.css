@@ -65,8 +65,25 @@ button,
   justify-content: space-between;
   gap: 1rem;
   padding: 1rem max(1.5rem, calc((100vw - var(--max)) / 2));
-  background: var(--paper);
+  background-color: var(--paper);
+  background-image: url("images/p3.png");
+  background-size: cover;
+  background-position: center;
+  isolation: isolate;
   border-bottom: 1px solid var(--line);
+}
+
+.site-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.82);
+  z-index: 0;
+}
+
+.site-header > * {
+  position: relative;
+  z-index: 1;
 }
 
 .brand {
