@@ -568,7 +568,7 @@ main {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   gap: 2rem;
-  padding: 3rem 0 2rem;
+  padding: 3rem max(1.5rem, calc((100vw - var(--max)) / 2)) 2rem;
   border-top: 1px solid rgba(217, 240, 230, 0.25);
   background-color: #0f3d35;
   background-image: linear-gradient(rgba(15, 61, 53, 0.9), rgba(15, 61, 53, 0.9)), url("images/p4.png");
