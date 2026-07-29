@@ -659,6 +659,14 @@ main {
     color: #ffffff;
   }
 
+  .language-pill[aria-disabled="true"] {
+    background: #f4f1eb;
+    border-color: #c8d1cb;
+    color: #6b7b73;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
   .article-language-content {
     opacity: 1;
     transition: opacity 150ms ease;

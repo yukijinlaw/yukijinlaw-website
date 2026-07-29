@@ -1,0 +1,55 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "git-status-check",
+			"type": "shell",
+			"command": "git status --short && git branch --show-current && git remote -v"
+		},
+		{
+			"label": "git-status-check",
+			"type": "shell",
+			"command": "git status --short; git branch --show-current; git remote -v"
+		},
+		{
+			"label": "git-status-check-2",
+			"type": "shell",
+			"command": "git status --short; git branch --show-current; git remote -v"
+		},
+		{
+			"label": "article-reference-check",
+			"type": "shell",
+			"command": "rg -n \"how-to-avoid-california-wage-and-hour-violations|what-is-employment-counseling-california-employers\" blog.html blog/*.html sitemap.xml"
+		},
+		{
+			"label": "git-ahead-check",
+			"type": "shell",
+			"command": "git status -sb; git rev-parse --abbrev-ref HEAD; git rev-parse HEAD; git log --oneline --decorate -n 3"
+		},
+		{
+			"label": "deployment-files-check",
+			"type": "shell",
+			"command": "if (Test-Path .github/workflows) { Get-ChildItem .github/workflows -Name } else { Write-Output \"no-github-workflows\" }; if (Test-Path vercel.json) { Write-Output \"vercel\" } else { Write-Output \"no-vercel\" }; if (Test-Path netlify.toml) { Write-Output \"netlify\" } else { Write-Output \"no-netlify\" }; if (Test-Path CNAME) { Write-Output \"cname\"; Get-Content CNAME }"
+		},
+		{
+			"label": "push-main",
+			"type": "shell",
+			"command": "git push origin main"
+		},
+		{
+			"label": "post-push-status",
+			"type": "shell",
+			"command": "git status --short; git status -sb; git rev-parse --abbrev-ref HEAD; git rev-parse HEAD"
+		},
+		{
+			"label": "final-git-status",
+			"type": "shell",
+			"command": "git status --short; git status -sb"
+		},
+		{
+			"label": "readd-required-article-files",
+			"type": "shell",
+			"command": "git add blog/how-to-avoid-california-wage-and-hour-violations.html blog.html sitemap.xml; git status --short"
+		}
+	]
+}
