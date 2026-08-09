@@ -50,6 +50,21 @@
 			"label": "readd-required-article-files",
 			"type": "shell",
 			"command": "git add blog/how-to-avoid-california-wage-and-hour-violations.html blog.html sitemap.xml; git status --short"
+		},
+		{
+			"label": "commit-wage-hour-article",
+			"type": "shell",
+			"command": "git add blog.html sitemap.xml california-employer-wage-hour-mistakes.html zh-california-employer-wage-hour-mistakes.html ko-california-employer-wage-hour-mistakes.html; git commit -m \"Add multilingual California wage-and-hour mistakes article\""
+		},
+		{
+			"label": "commit-wage-hour-article-2",
+			"type": "shell",
+			"command": "git add blog.html sitemap.xml california-employer-wage-hour-mistakes.html zh-california-employer-wage-hour-mistakes.html ko-california-employer-wage-hour-mistakes.html; git commit -m 'Add multilingual California wage-and-hour mistakes article'"
+		},
+		{
+			"label": "commit-tasks-json-change",
+			"type": "shell",
+			"command": "git add .vscode/tasks.json; git commit -m 'Update VS Code tasks configuration'"
 		}
 	]
 }
