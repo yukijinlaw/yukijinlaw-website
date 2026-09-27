@@ -167,6 +167,10 @@ function initArticleLanguageSwitcher(root) {
 
     if (activeContent.dataset.title) {
       document.title = `${activeContent.dataset.title}${titleSuffix}`;
+      const articleHeading = document.querySelector("[data-article-title]");
+      if (articleHeading) {
+        articleHeading.textContent = activeContent.dataset.title;
+      }
       if (ogTitle) {
         ogTitle.content = `${activeContent.dataset.title}${titleSuffix}`;
       }
